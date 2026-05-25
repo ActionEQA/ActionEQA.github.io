@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ActionEQA: Action Interface for Embodied Question Answering</title>
+  <meta name="description" content="ActionEQA is the first EQA benchmark for evaluating Vision-Language Models on the semantic-physical divide in robot action understanding. Accepted at TMLR 2026. Northwestern University." />
+  <meta property="og:title" content="ActionEQA: Action Interface for Embodied Question Answering" />
+  <meta property="og:description" content="A benchmark evaluating VLMs on bidirectional robot action reasoning across tasks, motions, and motor commands. TMLR 2026." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ======= NAV ======= -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="nav-logo-dot"></span>
+        ActionEQA
+      </a>
+      <div class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#highlights">Highlights</a>
+        <a href="#dataset">Dataset</a>
+        <a href="#results">Results</a>
+        <a href="#findings">Findings</a>
+        <a href="#viewer">Viewer</a>
+        <a href="#citation">Citation</a>
+        <a href="#download" class="nav-btn">Get Dataset</a>
+      </div>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="#abstract">Abstract</a>
+      <a href="#highlights">Highlights</a>
+      <a href="#dataset">Dataset</a>
+      <a href="#results">Results</a>
+      <a href="#findings">Findings</a>
+      <a href="#viewer">Viewer</a>
+      <a href="#citation">Citation</a>
+      <a href="#download">Get Dataset</a>
+    </div>
+  </nav>
+
+  <!-- ======= HERO ======= -->
+  <header class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-particles" id="hero-particles"></div>
+    <div class="hero-content">
+      <div class="venue-badge">
+        <span class="venue-dot"></span>
+        Transactions on Machine Learning Research &nbsp;·&nbsp; TMLR 2026
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-action">Action</span><span class="hero-eqa">EQA</span>
+      </h1>
+      <p class="hero-subtitle">Action Interface for Embodied Question Answering</p>
+      <p class="hero-tagline">
+        Bridging the Semantic–Physical Divide in Robot Action Understanding
+      </p>
+
+      <!-- AUTHORS (from main.tex) -->
+      <div class="authors-block">
+        <div class="authors-list">
+          <span class="author"><a href="https://tianweibao.github.io/" target="_blank" class="author-link"><span class="author-name">Tianwei Bao</span></a><sup class="author-aff">1</sup><sup class="author-eq">*</sup></span>
+          <span class="author-sep">,</span>
+          <span class="author"><a href="https://qinengwang-aiden.github.io/" target="_blank" class="author-link"><span class="author-name">Qineng Wang</span></a><sup class="author-aff">1</sup><sup class="author-eq">*</sup></span>
+          <span class="author-sep">,</span>
+          <span class="author"><a href="https://jameskrw.github.io/" target="_blank" class="author-link"><span class="author-name">Kangrui Wang</span></a><sup class="author-aff">1</sup></span>
+          <span class="author-sep">,</span>
+          <span class="author"><a href="https://mingkaid.github.io/" target="_blank" class="author-link"><span class="author-name">Mingkai Deng</span></a><sup class="author-aff">2</sup></span>
+          <span class="author-sep">,</span>
+          <span class="author"><a href="https://github.com/guangyliu" target="_blank" class="author-link"><span class="author-name">Guangyi Liu</span></a><sup class="author-aff">5</sup></span>
+          <span class="author-sep">,</span>
+          <span class="author"><a href="https://jiayuanm.com/" target="_blank" class="author-link"><span class="author-name">Jiayuan Mao</span></a><sup class="author-aff">3</sup></span>
+          <span class="author-sep">,</span>
+          <span class="author"><a href="https://www.mccormick.northwestern.edu/research-faculty/directory/profiles/birnbaum-larry.html" target="_blank" class="author-link"><span class="author-name">Larry Birnbaum</span></a><sup class="author-aff">1</sup></span>
+          <span class="author-sep">,</span>
+          <span class="author"><a href="http://zhiting.ucsd.edu/" target="_blank" class="author-link"><span class="author-name">Zhiting Hu</span></a><sup class="author-aff">4</sup></span>
+          <span class="author-sep">,</span>
+          <span class="author"><a href="https://mbzuai.ac.ae/study/faculty/professor-eric-xing/" target="_blank" class="author-link"><span class="author-name">Eric P. Xing</span></a><sup class="author-aff">2,5</sup></span>
+          <span class="author-sep">,</span>
+          <span class="author"><a href="https://zhaoranwang.github.io/" target="_blank" class="author-link"><span class="author-name">Zhaoran Wang</span></a><sup class="author-aff">1</sup></span>
+          <span class="author-sep">,</span>
+          <span class="author"><a href="https://limanling.github.io/" target="_blank" class="author-link"><span class="author-name">Manling Li</span></a><sup class="author-aff">1</sup></span>
+        </div>
+        <div class="affiliations">
+          <span><sup>1</sup>&thinsp;Northwestern University</span>
+          <span class="aff-sep">·</span>
+          <span><sup>2</sup>&thinsp;Carnegie Mellon University</span>
+          <span class="aff-sep">·</span>
+          <span><sup>3</sup>&thinsp;MIT</span>
+          <span class="aff-sep">·</span>
+          <span><sup>4</sup>&thinsp;UC San Diego</span>
+          <span class="aff-sep">·</span>
+          <span><sup>5</sup>&thinsp;MBZUAI</span>
+        </div>
+        <div class="equal-contrib">* Equal contribution</div>
+      </div>
+
+      <div class="hero-buttons">
+        <a href="https://openreview.net/pdf?id=HY2ruqdMt4" target="_blank" class="btn btn-primary" id="btn-paper">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Paper
+        </a>
+        <a href="https://openreview.net/forum?id=HY2ruqdMt4" target="_blank" class="btn btn-outline-gold" id="btn-openreview">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          OpenReview
+        </a>
+        <a href="https://huggingface.co/datasets/TianweiBao/ActionEQA" target="_blank" class="btn btn-secondary" id="btn-dataset">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          Dataset
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </header>
+
+  <!-- ======= ABSTRACT ======= -->
+  <section id="abstract" class="section section-light">
+    <div class="container">
+      <div class="section-label">Overview</div>
+      <h2 class="section-title">Abstract</h2>
+      <div class="abstract-card fade-in">
+        <p>
+          While Vision-Language Models (VLMs) are increasingly integral to embodied intelligence, a significant action understanding bottleneck persists in translating high-level semantic instructions into precise low-level physical actions. However, current benchmarks for embodied agents primarily focus on high-level perception and planning, failing to capture the depth and nature of this semantic-to-physical gap.
+        </p>
+        <p>
+          To address this, we introduce <strong>ActionEQA</strong>, the first Embodied Question Answering (EQA) benchmark designed to methodically evaluate the ability of VLMs to bridge this critical yet underexplored semantic-physical divide. Grounded in real-world robotics data, ActionEQA thoroughly analyzes VLMs' grasp of the action interface using a <strong>dual-tier design</strong>: (1) a <strong>Three-Tiered Action Hierarchy</strong> for pinpointing the depth at which VLMs' action reasoning collapses, and (2) <strong>Bidirectional Reasoning Tasks</strong> for testing whether VLMs struggle more to predict action outcomes or infer the actions that led to them.
+        </p>
+        <p>
+          Our key findings reveal: (1) The primary bottleneck in action understanding occurs at the <strong>mid-level</strong>, arising from the challenge of grounding compositional language in 3D physical geometry. (2) VLMs are more adept at inferring past actions than predicting their future outcomes. (3) Richer visual inputs require greater spatial reasoning from VLMs to map actions to physical geometry. (4) Within the action hierarchy, model failures shift from predominantly perceptual errors at the high level to flawed geometric and physical reasoning at the low level.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= HIGHLIGHTS ======= -->
+  <section id="highlights" class="section section-dark">
+    <div class="container">
+      <div class="section-label" style="color: var(--gold-light)">Key Contributions</div>
+      <h2 class="section-title" style="color: #fff">Research Highlights</h2>
+      <div class="highlights-grid">
+
+        <div class="highlight-card" data-delay="0">
+          <div class="highlight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 22 20 2 20"/><line x1="8.5" y1="11" x2="15.5" y2="11"/><line x1="5.5" y1="16" x2="18.5" y2="16"/></svg>
+          </div>
+          <h3>Three-Tiered Action Hierarchy</h3>
+          <p>Evaluates VLMs at <em>High</em> (task goals), <em>Mid</em> (semantic motion), and <em>Low</em> (7-DoF motor commands) levels — enabling pinpoint diagnosis of where action reasoning collapses across the semantic-to-physical spectrum.</p>
+        </div>
+
+        <div class="highlight-card" data-delay="100">
+          <div class="highlight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="8" x2="21" y2="8"/><polyline points="7 4 3 8 7 12"/><line x1="21" y1="16" x2="3" y2="16"/><polyline points="17 12 21 16 17 20"/></svg>
+          </div>
+          <h3>Bidirectional Reasoning</h3>
+          <p><strong>State Prediction</strong>: given a starting frame + action, predict the goal state. <strong>Action Inference</strong>: given before/after frames, identify the action that caused the transition.</p>
+        </div>
+
+        <div class="highlight-card" data-delay="200">
+          <div class="highlight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="9" width="16" height="11" rx="2"/><line x1="12" y1="9" x2="12" y2="5"/><circle cx="12" cy="4" r="1.5"/><circle cx="9" cy="14" r="1.5"/><circle cx="15" cy="14" r="1.5"/><path d="M9 18h6"/><line x1="7" y1="20" x2="7" y2="23"/><line x1="17" y1="20" x2="17" y2="23"/></svg>
+          </div>
+          <h3>Real-World Robot Data</h3>
+          <p>Grounded in three large-scale datasets: <strong>BridgeData V2</strong>, <strong>DROID</strong>, and <strong>RT-1</strong>, covering 8,795 questions, 26,213 unique images, and 2,629 unique episodes.</p>
+        </div>
+
+        <div class="highlight-card" data-delay="300">
+          <div class="highlight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 3H2l8 9.46V19l4 2V12.46L22 3z"/></svg>
+          </div>
+          <h3>Mid-Level Bottleneck Discovery</h3>
+          <p>Contrary to expectation, a <strong>V-shaped performance trend</strong> emerges: models struggle most at mid-level (semantic motion) — <em>not</em> low-level. Verified via paired t-tests across all 34 models (<em>p</em> &lt; 0.001, mean diff. +18.93% vs. high, +8.66% vs. low).</p>
+        </div>
+
+        <div class="highlight-card" data-delay="400">
+          <div class="highlight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="14" width="4" height="7"/><rect x="9" y="9" width="4" height="12"/><rect x="16" y="4" width="4" height="17"/><line x1="1" y1="21" x2="23" y2="21"/></svg>
+          </div>
+          <h3>Comprehensive 34-Model Evaluation</h3>
+          <p>Evaluates 26 open-weights and 8 proprietary VLMs. Best model (Gemini-2.5-Pro) achieves 58.4% overall vs. <strong>95.6% human performance</strong> — a 37.2% gap highlighting the immense challenge.</p>
+        </div>
+
+        <div class="highlight-card" data-delay="500">
+          <div class="highlight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+          </div>
+          <h3>Reasoning &gt; Perception</h3>
+          <p>Richer visual inputs (more camera views) <em>don't</em> consistently help and can hurt advanced models. Egocentric views dominate single-view scenarios with a +23.8% advantage on H-AI tasks — the bottleneck is <strong>reasoning</strong>, not perception.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= DATASET ======= -->
+  <section id="dataset" class="section section-light">
+    <div class="container">
+      <div class="section-label">Benchmark</div>
+      <h2 class="section-title">Dataset Overview</h2>
+      <p class="section-desc">ActionEQA is a visual question-answering benchmark for robot action understanding, designed to probe VLMs across two task types and three action abstraction levels.</p>
+
+      <div class="dataset-figure fade-in" style="margin-bottom: 44px; text-align: center;">
+        <img src="teaser_figure_website.jpg" alt="ActionEQA Dataset Overview" style="max-width: 100%; height: auto; cursor: zoom-in;" class="img-zoomable" onclick="document.getElementById('img-zoom-modal').classList.add('open'); document.getElementById('img-zoom-img').src=this.src;">
+      </div>
+
+      <!-- Stats strip -->
+      <div class="stats-strip fade-in">
+        <div class="stat-item">
+          <div class="stat-num">8,795</div>
+          <div class="stat-label">Total Questions</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">26,213</div>
+          <div class="stat-label">Unique Images</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">2,629</div>
+          <div class="stat-label">Unique Episodes</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Task Categories</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">34</div>
+          <div class="stat-label">VLMs Evaluated</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= RESULTS ======= -->
+  <section id="results" class="section section-purple">
+
+    <!-- ========== LEADERBOARD (wide container) ========== -->
+    <div class="container-wide">
+      <div class="section-label" style="color: var(--gold-light)">Evaluation</div>
+      <h2 class="section-title" style="color: #fff">Benchmark Results</h2>
+      <p class="section-desc" style="color: rgba(255,255,255,0.75); margin-bottom: 28px;">
+        Accuracy (%) on State Prediction (SP) and Action Inference (AI) across High (H), Mid (M), and Low (L) action levels on DROID, BridgeData V2, and RT-1.
+      </p>
+      <div class="leaderboard-wrap fade-in">
+        <div class="lb-toolbar">
+          <div class="lb-dataset-tabs" id="lb-dataset-tabs" role="tablist" aria-label="Dataset filter">
+            <button class="lb-tab lb-tab-active" data-dataset="all" id="lb-tab-all">All</button>
+            <button class="lb-tab" data-dataset="droid" id="lb-tab-droid">DROID</button>
+            <button class="lb-tab" data-dataset="bridge" id="lb-tab-bridge">BridgeData V2</button>
+            <button class="lb-tab" data-dataset="rt1" id="lb-tab-rt1">RT-1</button>
+          </div>
+          <div class="lb-type-chips" id="lb-type-chips">
+            <button class="lb-chip lb-chip-active" data-type="all" id="lb-chip-all">All Models</button>
+            <button class="lb-chip" data-type="open" id="lb-chip-open">Open-Weights</button>
+            <button class="lb-chip" data-type="prop" id="lb-chip-prop">Proprietary</button>
+          </div>
+        </div>
+
+        <div class="lb-table-scroll">
+          <table class="lb-table" id="lb-table" aria-label="Model benchmark leaderboard">
+            <thead id="lb-thead"></thead>
+            <tbody id="lb-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="lb-legend">
+          <span class="lb-legend-item"><span class="lb-medal gold-medal">🥇</span> 1st in group</span>
+          <span class="lb-legend-item"><span class="lb-medal silver-medal">🥈</span> 2nd in group</span>
+          <span class="lb-legend-item"><span class="lb-medal bronze-medal">🥉</span> 3rd in group</span>
+          <span class="lb-legend-item"><span class="lb-dot lb-dot-open"></span> Open-Weights</span>
+          <span class="lb-legend-item"><span class="lb-dot lb-dot-prop"></span> Proprietary</span>
+          <span class="lb-legend-item lb-legend-note">Click any column header to sort ↑↓</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======= EMPIRICAL FINDINGS ======= -->
+  <section id="findings" class="section section-light">
+    <div class="container">
+      <div class="section-label">Analysis</div>
+      <h2 class="section-title">Empirical Findings</h2>
+      <p class="section-desc">Our evaluation of 34 VLMs on ActionEQA reveals four critical insights into the semantic-to-physical gap, from a surprising V-shaped bottleneck to a fundamental shift in error nature across the action hierarchy.</p>
+
+      <!-- ── Finding 01: Mid-Level Bottleneck ── -->
+      <div class="ef-block fade-in">
+        <div class="ef-badge-row">
+          <span class="ef-badge">01</span>
+          <div>
+            <h3 class="ef-title">The Unexpected Mid-Level Bottleneck</h3>
+            <p class="ef-subtitle">Rather than a monotonic decline, VLMs exhibit a V-shaped performance profile — they struggle most with mid-level semantic motion descriptions, not low-level motor commands.</p>
+          </div>
+        </div>
+
+        <!-- Explainer + stat pills -->
+        <p class="ef-text-col-inline">Contrary to expectation, VLMs do <strong>not</strong> degrade monotonically from abstract to concrete actions. Paired <em>t</em>-tests confirm a V-shaped bottleneck at the mid-level is statistically significant across all 34 evaluated models: mid-level accuracy is lower than high-level by <strong>+18.93 pp</strong> and lower than low-level by <strong>+8.66 pp</strong> (both <em>p</em>&nbsp;&lt;&nbsp;0.001). The core challenge is grounding compositional language — e.g., <em>"Move along positive X-axis, Rotate clockwise around Z-axis"</em> — into 3D physical geometry.</p>
+
+        <!-- Multi-model grouped bar chart -->
+        <div class="ef-chart-wrap">
+          <div class="ef-chart-title">Accuracy (%) by Action Level — Representative Models vs. Human Baseline</div>
+          <div class="f01-chart" id="f01-chart" aria-label="Grouped bar chart showing V-shaped accuracy across High, Mid, Low action levels for 6 models">
+            <!-- Model rows rendered by JS -->
+          </div>
+          <div class="f01-axis">
+            <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+          </div>
+          <div class="f01-legend">
+            <span class="f01-leg-item"><span class="f01-leg-dot f01-high"></span>High-Level</span>
+            <span class="f01-leg-item"><span class="f01-leg-dot f01-mid"></span>Mid-Level <em>(bottleneck)</em></span>
+            <span class="f01-leg-item"><span class="f01-leg-dot f01-low"></span>Low-Level</span>
+          </div>
+          <p class="ef-note" style="margin-top:12px">Overall accuracy per level computed via hierarchical averaging across all applicable datasets.</p>
+        </div>
+
+        <!-- Rotation sub-finding -->
+        <div class="ef-rot-finding">
+          <h4 class="ef-sub-heading">Rotation: The Hardest Mid-Level Action</h4>
+          <p>Within the mid-level bottleneck, <strong>rotational actions consistently yield the highest error rates</strong> across all view configurations — confirmed by paired <em>t</em>-test (<em>p</em>&nbsp;=&nbsp;0.013, Cohen's <em>d</em>&nbsp;=&nbsp;2.04 vs. translation). Gripper actions (open/close) are the easiest and even improve slightly with more views, while rotation and translation errors remain stubbornly high regardless of perceptual richness.</p>
+          <div class="ef-rot-table-wrap">
+            <table class="ef-rot-table" aria-label="Mid-level error rates by action type and view count">
+              <thead>
+                <tr>
+                  <th>Mid-Level Action Type</th>
+                  <th>1 View</th>
+                  <th>2 Views</th>
+                  <th>3 Views</th>
+                  <th>4 Views</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Rotation</td>
+                  <td class="ef-worst">38.22%</td>
+                  <td class="ef-worst">39.35%</td>
+                  <td class="ef-worst">38.87%</td>
+                  <td class="ef-worst">39.76%</td>
+                  <td><span class="ef-tag ef-tag-danger">Highest &amp; Persistent</span></td>
+                </tr>
+                <tr>
+                  <td>Translation</td>
+                  <td>34.95%</td>
+                  <td>35.77%</td>
+                  <td>35.64%</td>
+                  <td>36.18%</td>
+                  <td><span class="ef-tag ef-tag-warn">No Improvement</span></td>
+                </tr>
+                <tr>
+                  <td>Gripper</td>
+                  <td class="ef-best-rot">25.89%</td>
+                  <td class="ef-best-rot">24.91%</td>
+                  <td class="ef-best-rot">24.73%</td>
+                  <td class="ef-best-rot">24.28%</td>
+                  <td><span class="ef-tag ef-tag-ok">Benefits from More Views</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="ef-note" style="margin-top:12px">Average normalized error rates (%) on BridgeData V2 by mid-level action type as exocentric views increase from 1 to 4.</p>
+        </div>
+      </div>
+
+      <!-- ── Finding 02: AI > SP Asymmetry ── -->
+      <div class="ef-block ef-block-alt fade-in">
+        <div class="ef-badge-row">
+          <span class="ef-badge ef-badge-gold">02</span>
+          <div>
+            <h3 class="ef-title">VLMs Excel at Explaining the Past, Not Predicting the Future</h3>
+            <p class="ef-subtitle">A consistent asymmetry: Action Inference (retrospective) outperforms State Prediction (predictive) by 4.31% on average across all 34 models.</p>
+          </div>
+        </div>
+
+        <div class="ef-split ef-split-reverse">
+          <div class="ef-visual-col">
+            <div class="ef-table-wrap">
+              <table class="ef-table" aria-label="State Prediction vs Action Inference comparison for top models">
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Type</th>
+                    <th>SP Avg</th>
+                    <th>AI Avg</th>
+                    <th>Δ (AI−SP)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ef-td-model">Gemini-2.5-Pro</td>
+                    <td><span class="ef-type-badge ef-type-prop">Prop.</span></td>
+                    <td>53.2%</td>
+                    <td>63.7%</td>
+                    <td class="ef-diff-pos">+10.5%&nbsp;↑</td>
+                  </tr>
+                  <tr>
+                    <td class="ef-td-model">Gemini-2.5-Flash</td>
+                    <td><span class="ef-type-badge ef-type-prop">Prop.</span></td>
+                    <td>42.7%</td>
+                    <td>51.2%</td>
+                    <td class="ef-diff-pos">+8.5%&nbsp;↑</td>
+                  </tr>
+                  <tr>
+                    <td class="ef-td-model">GPT-4.1</td>
+                    <td><span class="ef-type-badge ef-type-prop">Prop.</span></td>
+                    <td>48.9%</td>
+                    <td>44.0%</td>
+                    <td class="ef-diff-neg">−4.9%&nbsp;↓</td>
+                  </tr>
+                  <tr>
+                    <td class="ef-td-model">Ovis2.5-9B</td>
+                    <td><span class="ef-type-badge ef-type-open">Open</span></td>
+                    <td>35.3%</td>
+                    <td>49.6%</td>
+                    <td class="ef-diff-pos">+14.3%&nbsp;↑</td>
+                  </tr>
+                  <tr>
+                    <td class="ef-td-model">InternVL3-14B</td>
+                    <td><span class="ef-type-badge ef-type-open">Open</span></td>
+                    <td>38.9%</td>
+                    <td>45.5%</td>
+                    <td class="ef-diff-pos">+6.7%&nbsp;↑</td>
+                  </tr>
+                  <tr>
+                    <td class="ef-td-model">GLM-4.5V</td>
+                    <td><span class="ef-type-badge ef-type-open">Open</span></td>
+                    <td>48.0%</td>
+                    <td>44.4%</td>
+                    <td class="ef-diff-neg">−3.6%&nbsp;↓</td>
+                  </tr>
+                  <tr class="ef-row-human">
+                    <td class="ef-td-model ef-human-label">Human</td>
+                    <td>—</td>
+                    <td>96.2%</td>
+                    <td>94.9%</td>
+                    <td class="ef-diff-human">−1.3%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="ef-note" style="margin-top:12px">SP/AI averages computed via hierarchical averaging across all applicable datasets and action levels. Δ&nbsp;=&nbsp;AI&nbsp;−&nbsp;SP; positive values indicate AI outperforms SP.</p>
+          </div>
+          <div class="ef-text-col">
+            <p>ActionEQA's bidirectional framework exposes a striking asymmetry in VLM reasoning: models find it systematically easier to <strong>infer what action caused an observed outcome</strong> (Action Inference) than to <strong>predict the visual result of a planned action</strong> (State Prediction).</p>
+            <p>This gap is statistically significant across all 34 evaluated models (<em>p</em>&nbsp;&lt;&nbsp;0.001, paired <em>t</em>-test), with Action Inference outperforming State Prediction by an average of <strong>4.31 pp</strong>. The top model, Gemini-2.5-Pro, shows the largest absolute gap: 63.7% AI vs. 53.2% SP — a <strong>10.5 pp deficit</strong> in forward predictive reasoning.</p>
+            <p>This pattern reveals a fundamental weakness: current VLMs are better at retrospective explanation than prospective prediction of physical dynamics. Interestingly, humans exhibit the opposite trend — slightly better at SP — suggesting that predictive physical simulation is a distinctly human cognitive strength.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Finding 03: Camera Perspectives ── -->
+      <div class="ef-block fade-in">
+        <div class="ef-badge-row">
+          <span class="ef-badge ef-badge-indigo">03</span>
+          <div>
+            <h3 class="ef-title">Camera Perspective Matters More Than Quantity</h3>
+            <p class="ef-subtitle">More views don't guarantee better performance — and the egocentric (first-person) perspective dominates in all single-view settings.</p>
+          </div>
+        </div>
+
+        <!-- Sub-part A: Multiple Views -->
+        <h4 class="ef-sub-heading">A &mdash; Richer Visual Input Can Impose a Reasoning Burden</h4>
+        <p class="ef-text-col-inline">An ablation varying exocentric views from 1–4 on BridgeData V2 reveals a counterintuitive finding: <strong>advanced reasoning models like Gemini-2.5-Flash consistently degrade</strong> as more views are added, while open-weights models like InternVL3-14B improve monotonically. The divergence is strongly tied to task direction — <strong>Action Inference benefits from richer visual evidence</strong>, while <strong>State Prediction is fragile</strong> under multiple conflicting perspectives, as predicting a future outcome requires precise geometric reasoning that additional views can undermine rather than support.</p>
+
+        <!-- Chart 1: Overall average line chart -->
+        <div class="f03a-card">
+          <div class="f03a-card-label">Overall Average Accuracy (%) vs. Number of Exocentric Views &mdash; BridgeData V2</div>
+          <div id="f03a-overall" class="f03a-svg-host"></div>
+          <div class="f03a-legend" id="f03a-legend"></div>
+          <p class="ef-note" style="margin-top:10px">Overall accuracy averaged across all six task categories (H/M/L&nbsp;&times;&nbsp;SP/AI).</p>
+        </div>
+
+        <!-- Chart 2: SP vs AI side-by-side -->
+        <div class="f03a-two-panel">
+          <div class="f03a-panel">
+            <div class="f03a-panel-header">
+              <span class="f03a-ph-dot f03a-ph-sp"></span>
+              State Prediction (SP) Average
+            </div>
+            <div id="f03a-sp" class="f03a-svg-host"></div>
+          </div>
+          <div class="f03a-panel">
+            <div class="f03a-panel-header">
+              <span class="f03a-ph-dot f03a-ph-ai"></span>
+              Action Inference (AI) Average
+            </div>
+            <div id="f03a-ai" class="f03a-svg-host"></div>
+          </div>
+        </div>
+        <p class="ef-note" style="margin-top:10px">SP/AI averages computed from H/M/L subtasks per model (same Y-axis scale for direct comparison). The contrasting trend — AI rising for most models while SP stagnates or falls — reveals why additional views help retrospective reasoning but burden predictive reasoning.</p>
+
+        <!-- Sub-part B: Ego vs Exo -->
+        <h4 class="ef-sub-heading" style="margin-top:36px">B &mdash; Egocentric View Dominates in Single-View Scenarios</h4>
+        <p class="ef-text-col-inline">The egocentric (first-person) view <strong>unequivocally outperforms the exocentric (third-person) view</strong> across every action level and task direction (SP: <em>p</em>&nbsp;=&nbsp;0.014; AI: <em>p</em>&nbsp;&lt;&nbsp;0.001), with the most striking advantage at high-level Action Inference (+23.8 pp). Counterintuitively, <strong>fusing both views degrades performance</strong> in almost all settings — the combined input introduces conflicting signals rather than synergy, with the worst drop at −6.8 pp for high-level State Prediction.</p>
+        <div class="ef-egoexo-wrap">
+          <table class="ef-egoexo-table" aria-label="Viewpoint performance comparison: Egocentric vs Exocentric vs Combined">
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Action Level</th>
+                <th>Ego</th>
+                <th>Exo</th>
+                <th>Combined</th>
+                <th>Best Single View</th>
+                <th>&Delta; Combined</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="ef-egoexo-group-sp">
+                <td rowspan="3" style="font-style:italic; color:var(--purple)">State Pred.</td>
+                <td>High-Level</td>
+                <td class="ef-best">55.4</td><td>43.2</td><td>48.6</td>
+                <td>Ego&nbsp;(+12.2)</td>
+                <td class="ef-deg">−6.8</td>
+              </tr>
+              <tr class="ef-egoexo-group-sp">
+                <td>Mid-Level</td>
+                <td class="ef-best">35.9</td><td>34.0</td><td>35.5</td>
+                <td>Ego&nbsp;(+1.9)</td>
+                <td class="ef-deg">−0.4</td>
+              </tr>
+              <tr class="ef-egoexo-group-sp">
+                <td>Low-Level</td>
+                <td class="ef-best">35.5</td><td>34.8</td><td>33.7</td>
+                <td>Ego&nbsp;(+0.7)</td>
+                <td class="ef-deg">−1.8</td>
+              </tr>
+              <tr class="ef-egoexo-group-ai">
+                <td rowspan="3" style="font-style:italic; color:var(--gold-dark)">Action Inf.</td>
+                <td>High-Level</td>
+                <td class="ef-best">80.3</td><td>56.5</td><td>77.0</td>
+                <td>Ego&nbsp;(+23.8)</td>
+                <td class="ef-deg">−3.3</td>
+              </tr>
+              <tr class="ef-egoexo-group-ai">
+                <td>Mid-Level</td>
+                <td class="ef-best">37.2</td><td>31.6</td><td>33.7</td>
+                <td>Ego&nbsp;(+5.6)</td>
+                <td class="ef-deg">−3.5</td>
+              </tr>
+              <tr class="ef-egoexo-group-ai">
+                <td>Low-Level</td>
+                <td class="ef-best">51.6</td><td>48.6</td><td>51.8</td>
+                <td>Ego&nbsp;(+3.0)</td>
+                <td class="ef-gain">+0.2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="ef-note" style="margin-top:10px">Average accuracy (%) across representative VLMs on DROID dataset (the only source with both camera perspectives). <span style="color:#276749; font-weight:700;">Green bold</span> = best single-view value (Ego column). <span style="color:#c53030; font-weight:600;">Red</span> = degradation in Δ&nbsp;Combined vs. best single view.</p>
+      </div>
+
+      <!-- ── Finding 04: Error Nature Shift ── -->
+      <div class="ef-block ef-block-alt fade-in">
+        <div class="ef-badge-row">
+          <span class="ef-badge ef-badge-teal">04</span>
+          <div>
+            <h3 class="ef-title">Error Nature Shifts Across the Action Hierarchy</h3>
+            <p class="ef-subtitle">As actions become more granular, model failures shift from predominantly perceptual errors at the high level to geometric and physical reasoning errors at the low level.</p>
+          </div>
+        </div>
+
+        <p class="ef-text-col-inline">A qualitative analysis of 150 sampled error cases from the top-performing model (Gemini-2.5-Pro) reveals a clear and systematic shift in the nature of failures across the three tiers. All errors fall into two broad categories: <strong>Perceptual Grounding Errors</strong> (misinterpreting the visual scene) and <strong>Reasoning Errors</strong> (flawed logic about physical dynamics). The balance between these two categories inverts as we move from high to low-level actions.</p>
+
+        <!-- Error shift bar visualization -->
+        <div class="ef-error-shift">
+          <div class="ef-error-shift-title">Distribution of Error Types by Action Level (Gemini-2.5-Pro, n=50 errors per level)</div>
+          <div class="ef-shift-rows">
+            <div class="ef-shift-row">
+              <div class="ef-shift-label">High</div>
+              <div class="ef-shift-bar">
+                <div class="ef-shift-perceptual" style="width:59%">Perceptual: 59%</div>
+                <div class="ef-shift-reasoning">Reasoning: 41%</div>
+              </div>
+            </div>
+            <div class="ef-shift-row">
+              <div class="ef-shift-label">Mid</div>
+              <div class="ef-shift-bar">
+                <div class="ef-shift-perceptual" style="width:50%">Perceptual: 51%</div>
+                <div class="ef-shift-reasoning">Reasoning: 49%</div>
+              </div>
+            </div>
+            <div class="ef-shift-row">
+              <div class="ef-shift-label">Low</div>
+              <div class="ef-shift-bar">
+                <div class="ef-shift-perceptual" style="width:44%">Perceptual: 44%</div>
+                <div class="ef-shift-reasoning">Reasoning: 56%</div>
+              </div>
+            </div>
+          </div>
+          <div class="ef-shift-legend">
+            <span class="ef-shift-leg-item"><span class="ef-shift-leg-dot ef-shift-leg-perc"></span>Perceptual Grounding Errors</span>
+            <span class="ef-shift-leg-item"><span class="ef-shift-leg-dot ef-shift-leg-reas"></span>Reasoning Errors</span>
+          </div>
+        </div>
+
+        <!-- Custom donut charts -->
+        <h4 class="ef-sub-heading" style="margin-top:32px">Error Distribution by Action Level</h4>
+        <div class="ef-donut-row">
+
+          <div class="ef-donut-card">
+            <div class="ef-donut-level"><span class="level-badge level-high">High-Level</span></div>
+            <div id="f04-donut-high"></div>
+            <div class="ef-donut-legend">
+              <div class="ef-donut-leg-group">
+                <div class="ef-donut-leg-main"><span class="ef-donut-sw" style="background:#B6A369"></span>Perceptual Grounding <strong>59%</strong></div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#8F7F4E"></span>Neg. Hallucination — 31%</div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#D4C38A"></span>Pos. Hallucination — 28%</div>
+              </div>
+              <div class="ef-donut-leg-group">
+                <div class="ef-donut-leg-main"><span class="ef-donut-sw" style="background:#4E2A84"></span>Reasoning Errors <strong>41%</strong></div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#3a1f63"></span>Spatiotemporal — 19%</div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#7B5EA7"></span>Commonsense — 22%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ef-donut-card">
+            <div class="ef-donut-level"><span class="level-badge level-mid">Mid-Level</span></div>
+            <div id="f04-donut-mid"></div>
+            <div class="ef-donut-legend">
+              <div class="ef-donut-leg-group">
+                <div class="ef-donut-leg-main"><span class="ef-donut-sw" style="background:#B6A369"></span>Perceptual Grounding <strong>51%</strong></div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#8F7F4E"></span>Neg. Hallucination — 23%</div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#D4C38A"></span>Pos. Hallucination — 28%</div>
+              </div>
+              <div class="ef-donut-leg-group">
+                <div class="ef-donut-leg-main"><span class="ef-donut-sw" style="background:#4E2A84"></span>Reasoning Errors <strong>49%</strong></div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#3a1f63"></span>Spatiotemporal — 24%</div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#7B5EA7"></span>Commonsense — 25%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ef-donut-card">
+            <div class="ef-donut-level"><span class="level-badge level-low">Low-Level</span></div>
+            <div id="f04-donut-low"></div>
+            <div class="ef-donut-legend">
+              <div class="ef-donut-leg-group">
+                <div class="ef-donut-leg-main"><span class="ef-donut-sw" style="background:#B6A369"></span>Perceptual Grounding <strong>44%</strong></div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#8F7F4E"></span>Neg. Hallucination — 21%</div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#D4C38A"></span>Pos. Hallucination — 23%</div>
+              </div>
+              <div class="ef-donut-leg-group">
+                <div class="ef-donut-leg-main"><span class="ef-donut-sw" style="background:#4E2A84"></span>Reasoning Errors <strong>56%</strong></div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#3a1f63"></span>Spatiotemporal — 32%</div>
+                <div class="ef-donut-leg-sub"><span class="ef-donut-sw" style="background:#7B5EA7"></span>Commonsense — 24%</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Full error taxonomy -->
+        <h4 class="ef-sub-heading" style="margin-top:32px">Complete Error Taxonomy</h4>
+        <p class="ef-text-col-inline" style="margin-bottom:20px">Errors break down into two main categories and four subcategories, with 11 distinct error types identified from qualitative analysis of 150 sampled failures (Gemini-2.5-Pro, 50 per action level).</p>
+
+        <div class="etax-grid">
+
+          <!-- ── Perceptual Grounding Errors ── -->
+          <div class="etax-group etax-group-perc">
+            <div class="etax-group-header">
+              <div>
+                <div class="etax-group-title">Perceptual Grounding Errors</div>
+                <div class="etax-group-desc">Model's understanding of the physical world is incorrect — a disconnect between what it "sees" and what is actually present. <em>Dominant at High-Level.</em></div>
+              </div>
+            </div>
+            <div class="etax-subcats">
+              <div class="etax-subcat">
+                <div class="etax-subcat-label">
+                  Negative Hallucination <span class="etax-subcat-hint">(misses what IS there)</span>
+                </div>
+                <div class="etax-items">
+                  <div class="etax-item">
+                    <span class="etax-item-name">Static Perception Error</span>
+                    <span class="etax-item-def">Fails to perceive an object or its properties currently present and static in the environment.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Dynamic Perception Error</span>
+                    <span class="etax-item-def">Fails to detect or track a change when the gripper interacts with an object — e.g., misidentifying a held object mid-manipulation.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Rotation Misquantification</span>
+                    <span class="etax-item-def">Perceives that a rotation occurred but misjudges its direction or magnitude around the correct axis.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Translation Misquantification</span>
+                    <span class="etax-item-def">Perceives translational movement but fails to accurately sense its direction or distance.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Gripper State Misclassification</span>
+                    <span class="etax-item-def">Fails to determine whether the gripper is open, closed, or holding an object.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="etax-subcat">
+                <div class="etax-subcat-label">
+                  Positive Hallucination <span class="etax-subcat-hint">(invents what ISN'T there)</span>
+                </div>
+                <div class="etax-items">
+                  <div class="etax-item">
+                    <span class="etax-item-name">Action Preconditions Hallucination</span>
+                    <span class="etax-item-def">Incorrectly believes the conditions for an action are met — e.g., hallucinating the gripper has grasped an object when it is still open.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Action Outcomes Hallucination</span>
+                    <span class="etax-item-def">Invents a visual outcome that is not present — e.g., misinterpreting a shadow as a "wet mark" to satisfy a "wipe" command.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Dynamics Hallucination</span>
+                    <span class="etax-item-def">Fabricates a physical change — e.g., when a hidden chocolate bar is revealed, the model hallucinates a "placing" action.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Rotation / Translation / Gripper Hallucination</span>
+                    <span class="etax-item-def">Perceives a motion or gripper-state change that never occurred.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Reasoning Errors ── -->
+          <div class="etax-group etax-group-reas">
+            <div class="etax-group-header">
+              <div>
+                <div class="etax-group-title">Reasoning Errors</div>
+                <div class="etax-group-desc">Model correctly perceives the visual input but makes a logical mistake in interpreting or acting upon that information. <em>Dominant at Low-Level.</em></div>
+              </div>
+            </div>
+            <div class="etax-subcats">
+              <div class="etax-subcat">
+                <div class="etax-subcat-label">
+                  Spatiotemporal Reasoning <span class="etax-subcat-hint">(space &amp; time failures)</span>
+                </div>
+                <div class="etax-items">
+                  <div class="etax-item">
+                    <span class="etax-item-name">Temporal Reasoning Error</span>
+                    <span class="etax-item-def">Fails to correctly process the order of sequential states — e.g., believing an apple was placed into a bowl when it was actually picked up.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Spatial Reasoning Error</span>
+                    <span class="etax-item-def">Makes mistakes in understanding spatial relationships — e.g., misinterpreting a horizontal motion as "lifting into the air."</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Reference Frame Grounding Error</span>
+                    <span class="etax-item-def">Confuses robot-centric and world-centric coordinate systems — e.g., interpreting "move along negative Y" as moving left when the frame says right.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="etax-subcat">
+                <div class="etax-subcat-label">
+                  Commonsense Reasoning <span class="etax-subcat-hint">(world-knowledge failures)</span>
+                </div>
+                <div class="etax-items">
+                  <div class="etax-item">
+                    <span class="etax-item-name">Physics Compliance Error</span>
+                    <span class="etax-item-def">Plans or predicts an action violating basic physics — e.g., ignoring the coupling that occurs when a gripper closes on a pot.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Postconditions Overinference</span>
+                    <span class="etax-item-def">Assumes an action caused extra side effects beyond its direct outcome — e.g., insisting a "move" command must end with an object released.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Action Specificity Error</span>
+                    <span class="etax-item-def">Correctly identifies objects involved but describes the action too imprecisely — factually true but not the most meaningful description.</span>
+                  </div>
+                  <div class="etax-item">
+                    <span class="etax-item-name">Extraneous Action Error</span>
+                    <span class="etax-item-def">Selects an outcome image that includes an action not specified by the task — e.g., choosing an image where the gripper opens when no gripper change was requested.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======= DATASET VIEWER ======= -->
+  <section id="viewer" class="section section-light">
+    <div class="container">
+      <div class="section-label">Interactive</div>
+      <h2 class="section-title">Dataset Viewer</h2>
+      <p class="section-desc">Explore ActionEQA examples in real-time. Select a subset and browse the questions — images are loaded directly from HuggingFace.</p>
+
+      <div class="viewer-controls">
+        <div class="viewer-control-row">
+          <div class="control-group">
+            <label class="ctrl-label" for="ctrl-source">Source Dataset</label>
+            <select id="ctrl-source" class="ctrl-select">
+              <option value="bridge">BridgeData V2</option>
+              <option value="droid">DROID</option>
+              <option value="rt1">RT-1</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="ctrl-label" for="ctrl-level">Action Level</label>
+            <select id="ctrl-level" class="ctrl-select">
+              <option value="high">High Level</option>
+              <option value="mid">Mid Level</option>
+              <option value="low">Low Level</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="ctrl-label" for="ctrl-type">Task Type</label>
+            <select id="ctrl-type" class="ctrl-select">
+              <option value="forward">State Prediction (SP)</option>
+              <option value="inverse">Action Inference (AI)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary btn-load" id="btn-load-viewer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.9"/></svg>
+            Load Examples
+          </button>
+        </div>
+
+        <div class="viewer-status" id="viewer-status">
+          Select a subset above and click "Load Examples" to browse the benchmark.
+        </div>
+      </div>
+
+      <!-- Sample display -->
+      <div class="viewer-card hidden" id="viewer-card">
+        <div class="viewer-card-header">
+          <div class="viewer-nav">
+            <button class="viewer-nav-btn" id="btn-prev" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              Prev
+            </button>
+            <span class="viewer-counter" id="viewer-counter">1 / —</span>
+            <button class="viewer-nav-btn" id="btn-next">
+              Next
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+          <div class="viewer-meta-badges" id="viewer-meta-badges"></div>
+        </div>
+
+        <div class="viewer-body" id="viewer-body">
+          <!-- Dynamically populated -->
+        </div>
+
+        <div class="viewer-answer-row">
+          <span class="viewer-answer-label">Correct Answer:</span>
+          <span class="viewer-answer-val" id="viewer-answer"></span>
+          <button class="viewer-reveal-btn" id="btn-reveal">Reveal Answer</button>
+        </div>
+      </div>
+
+      <div class="viewer-loading hidden" id="viewer-loading">
+        <div class="loading-spinner"></div>
+        <span>Loading from HuggingFace…</span>
+      </div>
+
+      <div class="viewer-error hidden" id="viewer-error">
+        <div class="error-icon">⚠️</div>
+        <div id="viewer-error-msg">Failed to load data. Please try again.</div>
+        <p class="error-hint">Make sure you have an internet connection. Data is streamed directly from HuggingFace.</p>
+      </div>
+
+      <!-- HF embed link -->
+      <div class="hf-embed-link">
+        <a href="https://huggingface.co/datasets/TianweiBao/ActionEQA" target="_blank" class="btn btn-outline-purple" id="btn-hf-full">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Full Dataset on HuggingFace
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CITATION ======= -->
+  <section id="citation" class="section section-dark">
+    <div class="container">
+      <div class="section-label" style="color: var(--gold-light)">Reference</div>
+      <h2 class="section-title" style="color: #fff">Citation</h2>
+      <p class="section-desc" style="color: rgba(255,255,255,0.7)">If you use ActionEQA in your research, please cite our paper:</p>
+      <div class="citation-block">
+        <button class="copy-btn" id="copy-citation" title="Copy BibTeX">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copy-label">Copy BibTeX</span>
+        </button>
+        <pre id="bibtex-text">@article{bao2026actioneqa,
+  title   = {ActionEQA: Action Interface for Embodied Question Answering},
+  author  = {Bao, Tianwei and Wang, Qineng and Wang, Kangrui and Deng, Mingkai
+             and Liu, Guangyi and Mao, Jiayuan and Birnbaum, Larry and Hu, Zhiting
+             and Xing, Eric P. and Wang, Zhaoran and Li, Manling},
+  journal = {Transactions on Machine Learning Research},
+  issn    = {2835-8856},
+  year    = {2026},
+  url     = {https://openreview.net/forum?id=HY2ruqdMt4},
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= DOWNLOAD ======= -->
+  <section id="download" class="section section-light">
+    <div class="container">
+      <div class="section-label">Get Started</div>
+      <h2 class="section-title">Download &amp; Usage</h2>
+      <p class="section-desc">ActionEQA is publicly available on HuggingFace. Subsets follow the naming pattern <code>{bridge|droid|rt1}_{high|mid|low}_{forward|inverse}</code>.</p>
+
+      <div class="code-tabs">
+        <button class="ctab ctab-active" data-ctab="hf" id="ctab-hf">🤗 Load Dataset</button>
+        <button class="ctab" data-ctab="subsets" id="ctab-subsets">📋 All Subsets</button>
+        <button class="ctab" data-ctab="fields" id="ctab-fields">🗂 Data Fields</button>
+      </div>
+
+      <div class="code-block-wrap" id="code-hf">
+        <button class="copy-btn copy-code" data-target="code-hf-text" title="Copy code">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span>Copy</span>
+        </button>
+        <pre id="code-hf-text"><span class="cm">from</span> datasets <span class="cm">import</span> load_dataset
+
+<span class="cc"># Load BridgeData V2 · High-Level · State Prediction</span>
+dataset = load_dataset(
+    <span class="cs">"TianweiBao/ActionEQA"</span>,
+    <span class="cs">"bridge_high_forward"</span>
+)
+
+<span class="cc"># Load DROID · Mid-Level · Action Inference</span>
+dataset = load_dataset(
+    <span class="cs">"TianweiBao/ActionEQA"</span>,
+    <span class="cs">"droid_mid_inverse"</span>
+)
+
+sample = dataset[<span class="cs">"train"</span>][<span class="cn">0</span>]
+<span class="cm">print</span>(sample.keys())
+<span class="cc"># dict_keys(['frame1', 'action', 'option_A', 'option_B',</span>
+<span class="cc">#            'option_C', 'option_D', 'correct_ans'])</span></pre>
+      </div>
+
+      <div class="code-block-wrap hidden" id="code-subsets">
+        <pre><span class="cc"># 14 subsets total — naming: {source}_{level}_{type}</span>
+
+<span class="cc"># BridgeData V2</span>
+<span class="cs">"bridge_high_forward"</span>   <span class="cc"># H-SP</span>
+<span class="cs">"bridge_high_inverse"</span>   <span class="cc"># H-AI</span>
+<span class="cs">"bridge_mid_forward"</span>    <span class="cc"># M-SP</span>
+<span class="cs">"bridge_mid_inverse"</span>    <span class="cc"># M-AI</span>
+<span class="cs">"bridge_low_forward"</span>    <span class="cc"># L-SP</span>
+<span class="cs">"bridge_low_inverse"</span>    <span class="cc"># L-AI</span>
+
+<span class="cc"># DROID</span>
+<span class="cs">"droid_high_forward"</span>    <span class="cc"># H-SP</span>
+<span class="cs">"droid_high_inverse"</span>    <span class="cc"># H-AI</span>
+<span class="cs">"droid_mid_forward"</span>     <span class="cc"># M-SP</span>
+<span class="cs">"droid_mid_inverse"</span>     <span class="cc"># M-AI</span>
+<span class="cs">"droid_low_forward"</span>     <span class="cc"># L-SP</span>
+<span class="cs">"droid_low_inverse"</span>     <span class="cc"># L-AI</span>
+
+<span class="cc"># RT-1 (High level only)</span>
+<span class="cs">"rt1_high_forward"</span>      <span class="cc"># H-SP</span>
+<span class="cs">"rt1_high_inverse"</span>      <span class="cc"># H-AI</span></pre>
+      </div>
+
+      <div class="code-block-wrap hidden" id="code-fields">
+        <pre><span class="cc"># Forward (State Prediction) subsets — *_forward</span>
+{
+  <span class="cs">"frame1"</span>:     <span class="cm">PIL.Image</span>,   <span class="cc"># Initial state s_t</span>
+  <span class="cs">"action"</span>:     <span class="cm">str</span>,         <span class="cc"># Action description a_t</span>
+  <span class="cs">"option_A"</span>:   <span class="cm">PIL.Image</span>,   <span class="cc"># Candidate goal state</span>
+  <span class="cs">"option_B"</span>:   <span class="cm">PIL.Image</span>,
+  <span class="cs">"option_C"</span>:   <span class="cm">PIL.Image</span>,
+  <span class="cs">"option_D"</span>:   <span class="cm">PIL.Image</span>,
+  <span class="cs">"correct_ans"</span>: <span class="cm">int</span>         <span class="cc"># 0=A, 1=B, 2=C, 3=D</span>
+}
+
+<span class="cc"># Inverse (Action Inference) subsets — *_inverse</span>
+{
+  <span class="cs">"frame1"</span>:     <span class="cm">PIL.Image</span>,   <span class="cc"># Initial state s_t</span>
+  <span class="cs">"frame2"</span>:     <span class="cm">PIL.Image</span>,   <span class="cc"># Final state s_{t+1}</span>
+  <span class="cs">"option_A"</span>:   <span class="cm">str</span>,         <span class="cc"># Candidate action description</span>
+  <span class="cs">"option_B"</span>:   <span class="cm">str</span>,
+  <span class="cs">"option_C"</span>:   <span class="cm">str</span>,
+  <span class="cs">"option_D"</span>:   <span class="cm">str</span>,
+  <span class="cs">"correct_ans"</span>: <span class="cm">int</span>         <span class="cc"># 0=A, 1=B, 2=C, 3=D</span>
+}</pre>
+      </div>
+
+      <div class="download-cta">
+        <a href="https://huggingface.co/datasets/TianweiBao/ActionEQA" target="_blank" class="btn btn-secondary" id="btn-hf-main">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          HuggingFace Dataset
+        </a>
+        <a href="https://openreview.net/pdf?id=HY2ruqdMt4" target="_blank" class="btn btn-primary" id="btn-paper-dl">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Read the Paper
+        </a>
+        <a href="https://openreview.net/forum?id=HY2ruqdMt4" target="_blank" class="btn btn-outline-purple" id="btn-or">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          OpenReview
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo">ActionEQA</div>
+        <div class="footer-meta">TMLR 2026 &nbsp;·&nbsp; Northwestern University &amp; CMU &amp; UPenn &amp; UCSD &amp; MBZUAI</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://openreview.net/pdf?id=HY2ruqdMt4" target="_blank">Paper</a>
+        <a href="https://openreview.net/forum?id=HY2ruqdMt4" target="_blank">OpenReview</a>
+        <a href="https://huggingface.co/datasets/TianweiBao/ActionEQA" target="_blank">Dataset</a>
+        <a href="#citation">Citation</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tianwei Bao. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- ── Image zoom lightbox ── -->
+  <div id="img-zoom-modal" class="img-zoom-modal" role="dialog" aria-modal="true" aria-label="Zoomed image">
+    <button class="img-zoom-close" id="img-zoom-close" aria-label="Close zoom">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <img class="img-zoom-img" id="img-zoom-img" alt="" />
+    <p class="img-zoom-hint">Click backdrop &nbsp;·&nbsp; press <kbd>Esc</kbd> to close</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

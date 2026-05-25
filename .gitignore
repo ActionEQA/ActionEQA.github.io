@@ -1,0 +1,10 @@
+# Local cache - do not upload
+hf_cache/
+
+# LaTeX source files
+ActionEQA_LaTeX/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
