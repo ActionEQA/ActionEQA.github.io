@@ -106,7 +106,7 @@
       </div>
 
       <div class="hero-buttons">
-        <a href="https://openreview.net/pdf?id=HY2ruqdMt4" target="_blank" class="btn btn-primary" id="btn-paper">
+        <a href="https://openreview.net/pdf?id=HY2ruqdMt4" target="_blank" class="btn btn-outline-gold" id="btn-paper">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           Paper
         </a>
@@ -114,9 +114,13 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
           OpenReview
         </a>
-        <a href="https://huggingface.co/datasets/TianweiBao/ActionEQA" target="_blank" class="btn btn-secondary" id="btn-dataset">
+        <a href="https://huggingface.co/datasets/TianweiBao/ActionEQA" target="_blank" class="btn btn-outline-gold" id="btn-dataset">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
           Dataset
+        </a>
+        <a href="https://github.com/ActionEQA/ActionEQA_TMLR_2026" target="_blank" class="btn btn-outline-gold" id="btn-github">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          Code
         </a>
       </div>
     </div>
@@ -919,7 +923,7 @@
       <div class="code-tabs">
         <button class="ctab ctab-active" data-ctab="hf" id="ctab-hf">🤗 Load Dataset</button>
         <button class="ctab" data-ctab="subsets" id="ctab-subsets">📋 All Subsets</button>
-        <button class="ctab" data-ctab="fields" id="ctab-fields">🗂 Data Fields</button>
+        <button class="ctab" data-ctab="fields" id="ctab-fields">📂 Data Fields</button>
       </div>
 
       <div class="code-block-wrap" id="code-hf">
@@ -995,20 +999,6 @@ sample = dataset[<span class="cs">"train"</span>][<span class="cn">0</span>]
 }</pre>
       </div>
 
-      <div class="download-cta">
-        <a href="https://huggingface.co/datasets/TianweiBao/ActionEQA" target="_blank" class="btn btn-secondary" id="btn-hf-main">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          HuggingFace Dataset
-        </a>
-        <a href="https://openreview.net/pdf?id=HY2ruqdMt4" target="_blank" class="btn btn-primary" id="btn-paper-dl">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Read the Paper
-        </a>
-        <a href="https://openreview.net/forum?id=HY2ruqdMt4" target="_blank" class="btn btn-outline-purple" id="btn-or">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-          OpenReview
-        </a>
-      </div>
     </div>
   </section>
 
@@ -1023,6 +1013,7 @@ sample = dataset[<span class="cs">"train"</span>][<span class="cn">0</span>]
         <a href="https://openreview.net/pdf?id=HY2ruqdMt4" target="_blank">Paper</a>
         <a href="https://openreview.net/forum?id=HY2ruqdMt4" target="_blank">OpenReview</a>
         <a href="https://huggingface.co/datasets/TianweiBao/ActionEQA" target="_blank">Dataset</a>
+        <a href="https://github.com/ActionEQA/ActionEQA_TMLR_2026" target="_blank">GitHub</a>
         <a href="#citation">Citation</a>
       </div>
     </div>

@@ -767,7 +767,6 @@ pre { font-family: 'JetBrains Mono', monospace; font-size: .82rem; color: rgba(2
 .cc { color: #546E7A; }
 .cs { color: #C3E88D; }
 .cn { color: #F78C6C; }
-.download-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 
 /* ============================================================  FOOTER  */
 .footer { background: var(--purple-deep); border-top: 1px solid rgba(182,163,105,.12); padding: 34px 0 18px; }
