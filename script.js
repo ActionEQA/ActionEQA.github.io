@@ -103,7 +103,12 @@ document.querySelectorAll('.copy-code').forEach(btn => {
 const sections = document.querySelectorAll('section[id], header[id]');
 window.addEventListener('scroll', () => {
   let current = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 50;
+  if (nearBottom) {
+    current = sections[sections.length - 1].id;
+  } else {
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  }
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.style.color = '';
     if (a.getAttribute('href') === '#' + current) a.style.color = 'var(--gold-light)';

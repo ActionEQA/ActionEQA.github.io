@@ -31,7 +31,6 @@
         <a href="#findings">Findings</a>
         <a href="#viewer">Viewer</a>
         <a href="#citation">Citation</a>
-        <a href="#download" class="nav-btn">Get Dataset</a>
       </div>
       <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -45,7 +44,6 @@
       <a href="#findings">Findings</a>
       <a href="#viewer">Viewer</a>
       <a href="#citation">Citation</a>
-      <a href="#download">Get Dataset</a>
     </div>
   </nav>
 
@@ -910,95 +908,6 @@
   url     = {https://openreview.net/forum?id=HY2ruqdMt4},
 }</pre>
       </div>
-    </div>
-  </section>
-
-  <!-- ======= DOWNLOAD ======= -->
-  <section id="download" class="section section-light">
-    <div class="container">
-      <div class="section-label">Get Started</div>
-      <h2 class="section-title">Download &amp; Usage</h2>
-      <p class="section-desc">ActionEQA is publicly available on HuggingFace. Subsets follow the naming pattern <code>{bridge|droid|rt1}_{high|mid|low}_{forward|inverse}</code>.</p>
-
-      <div class="code-tabs">
-        <button class="ctab ctab-active" data-ctab="hf" id="ctab-hf">🤗 Load Dataset</button>
-        <button class="ctab" data-ctab="subsets" id="ctab-subsets">📋 All Subsets</button>
-        <button class="ctab" data-ctab="fields" id="ctab-fields">📂 Data Fields</button>
-      </div>
-
-      <div class="code-block-wrap" id="code-hf">
-        <button class="copy-btn copy-code" data-target="code-hf-text" title="Copy code">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          <span>Copy</span>
-        </button>
-        <pre id="code-hf-text"><span class="cm">from</span> datasets <span class="cm">import</span> load_dataset
-
-<span class="cc"># Load BridgeData V2 · High-Level · State Prediction</span>
-dataset = load_dataset(
-    <span class="cs">"TianweiBao/ActionEQA"</span>,
-    <span class="cs">"bridge_high_forward"</span>
-)
-
-<span class="cc"># Load DROID · Mid-Level · Action Inference</span>
-dataset = load_dataset(
-    <span class="cs">"TianweiBao/ActionEQA"</span>,
-    <span class="cs">"droid_mid_inverse"</span>
-)
-
-sample = dataset[<span class="cs">"train"</span>][<span class="cn">0</span>]
-<span class="cm">print</span>(sample.keys())
-<span class="cc"># dict_keys(['frame1', 'action', 'option_A', 'option_B',</span>
-<span class="cc">#            'option_C', 'option_D', 'correct_ans'])</span></pre>
-      </div>
-
-      <div class="code-block-wrap hidden" id="code-subsets">
-        <pre><span class="cc"># 14 subsets total — naming: {source}_{level}_{type}</span>
-
-<span class="cc"># BridgeData V2</span>
-<span class="cs">"bridge_high_forward"</span>   <span class="cc"># H-SP</span>
-<span class="cs">"bridge_high_inverse"</span>   <span class="cc"># H-AI</span>
-<span class="cs">"bridge_mid_forward"</span>    <span class="cc"># M-SP</span>
-<span class="cs">"bridge_mid_inverse"</span>    <span class="cc"># M-AI</span>
-<span class="cs">"bridge_low_forward"</span>    <span class="cc"># L-SP</span>
-<span class="cs">"bridge_low_inverse"</span>    <span class="cc"># L-AI</span>
-
-<span class="cc"># DROID</span>
-<span class="cs">"droid_high_forward"</span>    <span class="cc"># H-SP</span>
-<span class="cs">"droid_high_inverse"</span>    <span class="cc"># H-AI</span>
-<span class="cs">"droid_mid_forward"</span>     <span class="cc"># M-SP</span>
-<span class="cs">"droid_mid_inverse"</span>     <span class="cc"># M-AI</span>
-<span class="cs">"droid_low_forward"</span>     <span class="cc"># L-SP</span>
-<span class="cs">"droid_low_inverse"</span>     <span class="cc"># L-AI</span>
-
-<span class="cc"># RT-1 (High level only)</span>
-<span class="cs">"rt1_high_forward"</span>      <span class="cc"># H-SP</span>
-<span class="cs">"rt1_high_inverse"</span>      <span class="cc"># H-AI</span></pre>
-      </div>
-
-      <div class="code-block-wrap hidden" id="code-fields">
-        <pre><span class="cc"># Forward (State Prediction) subsets — *_forward</span>
-{
-  <span class="cs">"frame1"</span>:     <span class="cm">PIL.Image</span>,   <span class="cc"># Initial state s_t</span>
-  <span class="cs">"action"</span>:     <span class="cm">str</span>,         <span class="cc"># Action description a_t</span>
-  <span class="cs">"option_A"</span>:   <span class="cm">PIL.Image</span>,   <span class="cc"># Candidate goal state</span>
-  <span class="cs">"option_B"</span>:   <span class="cm">PIL.Image</span>,
-  <span class="cs">"option_C"</span>:   <span class="cm">PIL.Image</span>,
-  <span class="cs">"option_D"</span>:   <span class="cm">PIL.Image</span>,
-  <span class="cs">"correct_ans"</span>: <span class="cm">int</span>         <span class="cc"># 0=A, 1=B, 2=C, 3=D</span>
-}
-
-<span class="cc"># Inverse (Action Inference) subsets — *_inverse</span>
-{
-  <span class="cs">"frame1"</span>:     <span class="cm">PIL.Image</span>,   <span class="cc"># Initial state s_t</span>
-  <span class="cs">"frame2"</span>:     <span class="cm">PIL.Image</span>,   <span class="cc"># Final state s_{t+1}</span>
-  <span class="cs">"option_A"</span>:   <span class="cm">str</span>,         <span class="cc"># Candidate action description</span>
-  <span class="cs">"option_B"</span>:   <span class="cm">str</span>,
-  <span class="cs">"option_C"</span>:   <span class="cm">str</span>,
-  <span class="cs">"option_D"</span>:   <span class="cm">str</span>,
-  <span class="cs">"correct_ans"</span>: <span class="cm">int</span>         <span class="cc"># 0=A, 1=B, 2=C, 3=D</span>
-}</pre>
-      </div>
-
     </div>
   </section>
 
